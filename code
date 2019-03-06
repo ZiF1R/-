@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
 #include <algorithm> // для std::swap
-using namespace std;
 
-void selectionSort(int *array, int size, bool (*comparisonFunc)(int,int))    // сортируем массив
+using namespace std;
+using comparisonFunc = bool(*)(int, int);
+
+void selectionSort(int *array, int size, comparisonFunc Func)    // сортируем массив
 {
 	for (int startIndex = 0; startIndex < size; ++startIndex)
 	{
@@ -11,7 +13,7 @@ void selectionSort(int *array, int size, bool (*comparisonFunc)(int,int))    // 
 
 		for (int currentIndex = startIndex + 1; currentIndex < size; ++currentIndex)
 		{
-			if (comparisonFunc(array[bestIndex], array[currentIndex]))      // сравниваем числа
+			if (Func(array[bestIndex], array[currentIndex]))      // сравниваем числа
 				bestIndex = currentIndex;
 		}
 		swap(array[startIndex], array[bestIndex]);  
