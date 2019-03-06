@@ -11,7 +11,7 @@ void selectionSort(int *array, int size, bool (*comparisonFunc)(int,int))    // 
 
 		for (int currentIndex = startIndex + 1; currentIndex < size; ++currentIndex)
 		{
-			if (comparisonFunc(array[bestIndex], array[currentIndex]))      // сравниваем числа тут
+			if (comparisonFunc(array[bestIndex], array[currentIndex]))      // сравниваем числа
 				bestIndex = currentIndex;
 		}
 		swap(array[startIndex], array[bestIndex]);  
