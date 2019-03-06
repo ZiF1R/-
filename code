@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include <algorithm> // для std::swap
+using namespace std;
+
+void selectionSort(int *array, int size, bool (*comparisonFunc)(int,int))    // сортируем массив
+{
+	for (int startIndex = 0; startIndex < size; ++startIndex)
+	{
+		int bestIndex = startIndex;
+
+		for (int currentIndex = startIndex + 1; currentIndex < size; ++currentIndex)
+		{
+			if (comparisonFunc(array[bestIndex], array[currentIndex]))      // сравниваем числа тут
+				bestIndex = currentIndex;
+		}
+		swap(array[startIndex], array[bestIndex]);  
+	}
+}
+
+void printArray(int *array, int size)  // выводим значения массива
+{
+	for (int index = 0; index < size; ++index)
+		cout << array[index] << " ";
+	cout << "\n";
+}
+
+bool ascending(int a, int b)   // функция сравнения, которая выполняет сортировку в порядке возрастания
+{
+	return a > b;
+}
+
+bool descending(int a, int b)   // функция сравнения, которая выполняет сортировку в порядке убывания
+
+	return a < b;
+}
+
+
+int main()
+{
+	int array[8] = { 4, 8, 5, 6, 2, 3, 1, 7 };
+
+	selectionSort(array, 8, descending);  // сортируем в порядке убывания 
+	printArray(array, 8);
+
+	selectionSort(array, 8, ascending);   // сортируем в порядке возрастания
+	printArray(array, 8);
+
+	return 0;
+}
+
+// Output:  8 7 6 5 4 3 2 1
+            1 2 3 4 5 6 7 8
