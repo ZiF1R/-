@@ -12,6 +12,7 @@ int getNumber()
 
 	return a;
 }
+
 char getOperation()
 {
 	char op;
@@ -28,14 +29,17 @@ int add(int a, int b)
 {
 	return a + b;
 }
+
 int subtract(int a, int b)
 {
 	return a - b;
 }
+
 int multiply(int a, int b)
 {
 	return a * b;
 }
+
 int divide(int a, int b)
 {
 	return a / b;
@@ -49,12 +53,14 @@ struct arithmeticStruct
 	char op;
 	arithmeticFcn Func;
 };
+
 static arithmeticStruct arithmeticArray[] = {
 	{'+', add},
 	{'-', subtract},
 	{'*', multiply},
 	{'/', divide}
 };
+
 arithmeticFcn getArithmeticFunc(char op)
 {
 	for (auto &loop : arithmeticArray)
