@@ -1,0 +1,29 @@
+#include <iostream>
+
+using std::cout;
+
+int factorial (int Number)
+{
+	if (Number < 1)
+		return 1;
+	else
+		return factorial(Number - 1) * Number;
+}
+
+int main()
+{
+	for (int x = 1; x <= 7; ++x)
+		cout << x << "!" << " = " << factorial(x) << "\n";
+
+	return 0;
+}
+
+/*Output:	
+			1! = 1
+			2! = 2
+			3! = 6
+			4! = 24
+			5! = 120
+			6! = 720
+			7! = 5040
+*/
