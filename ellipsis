@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cstdarg> // for ellipsis
+
+double findAverage(int countOfArguments, ...)
+{
+	double sum = 0;
+
+	va_list list;
+	va_start(list, countOfArguments);
+
+	for (int arg = 0; arg < countOfArguments; ++arg)
+		sum += va_arg(list, int);
+
+	va_end(list);
+
+	return sum / countOfArguments;
+}
+
+int main()
+{	
+	std::cout << findAverage(4, 1, 2, 3, 4) << '\n';
+
+	system("pause");	
+	return 0;
+}
