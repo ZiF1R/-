@@ -1,0 +1,78 @@
+// main.cpp:
+
+#include <iostream>	//standard library
+#include "Classes.h"
+
+int main()
+{
+	Stack stack;
+	stack.reset();
+
+	stack.print();
+
+	stack.push(3);
+	stack.push(7);
+	stack.push(5);
+	stack.print();
+
+	stack.pop();
+	stack.print();
+
+	stack.pop();
+	stack.pop();
+
+	stack.print();
+
+	system("pause");
+	return 0;
+}
+
+*****************************************
+
+Classes.h
+
+#ifndef CLASSES_H
+#define CLASSES_H
+#include <cassert>
+
+class Stack
+{
+private:
+	int m_length;
+	int m_array[10];
+
+public:
+
+	void reset()
+	{
+		m_length = 0;
+		for (int index = 0; index < 10; ++index)
+			m_array[index] = 0;
+	}
+
+	bool push(int value)
+	{
+		if (m_length == 10)
+			return false;
+
+		m_array[m_length++] = value;
+		return true;
+	}
+
+	int pop()
+	{
+		assert(m_length > 0);
+
+		return m_array[--m_length];
+	}
+
+	void print()
+	{
+		std::cout << "( ";
+		for (int i = 0; i < m_length; ++i)
+			std::cout << m_array[i] << ' ';
+		std::cout << " )\n";
+	}
+};
+
+#endif
