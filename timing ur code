@@ -1,5 +1,5 @@
 Main.cpp:
-[code]
+
 #include <iostream>
 #include "timer.h"
 
@@ -13,10 +13,9 @@ int main()
 
 	return 0;
 }
-[/code]
 
 timer.h:
-[code]
+
 #ifndef TIMER_H
 #define TIMER_H
 
@@ -48,4 +47,3 @@ public:
 };
 
 #endif
-[/code]
