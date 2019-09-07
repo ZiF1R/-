@@ -1,0 +1,91 @@
+main.cpp:
+
+#include <iostream>
+#include "classes.h"
+
+int main()  // temporary programme for test our class 'Fraction'
+{
+	Fraction f1(2, 5);
+	f1.print();
+
+	Fraction f2(3, 8);
+	f2.print();
+
+	Fraction f3 = f1 * f2;
+	f3.print();
+
+	Fraction f4 = f1 * 2;
+	f4.print();
+
+	Fraction f5 = 2 * f2;
+	f5.print();
+
+	Fraction f6 = Fraction(1, 2) * Fraction(2, 3) * Fraction(3, 4);
+	f6.print();
+
+	return 0;
+}
+
+/////////////////////////////////////////
+
+classes.h:
+
+#ifndef CLASSES_H
+#define CLASSES_H
+
+#include <cassert>	// for assert
+
+class Fraction
+{
+private:
+	short int m_numerator;
+	short int m_denominator;
+
+public:
+	Fraction(short int numerator, short int denominator)
+		: m_numerator(numerator), m_denominator(denominator)
+	{
+		reduce();
+	}
+
+	static int greatestCommonDivisor(int numerator, int denominator)	// looking for the greatest common divisor for the fraction
+	{
+		return (denominator == 0) ? (numerator > 0 ? numerator : -numerator) : greatestCommonDivisor(denominator, numerator % denominator);
+	}
+
+	void reduce()	// for example: fraction 2/4 is equal 1/2, and so, this function reduce denominator and numerator by greatest common divisor
+	{
+		short int reduceFraction(greatestCommonDivisor(m_numerator, m_denominator));
+
+		m_numerator /= reduceFraction;
+		m_denominator /= reduceFraction;
+	}
+
+	friend Fraction operator*(const Fraction& f1, const Fraction& f2);
+	friend Fraction operator*(const Fraction& f, short int value);
+	friend Fraction operator*(short int value, const Fraction& f);
+
+	void print() const
+	{
+		assert(m_denominator > 0);	// denominator must be more than 0 
+
+		std::cout << m_numerator << "/" << m_denominator << '\n';
+	}
+};
+
+Fraction operator*(const Fraction& f1, const Fraction& f2)
+{
+	return Fraction(f1.m_numerator * f2.m_numerator, f1.m_denominator * f2.m_denominator);
+}
+
+Fraction operator*(const Fraction& f, short int value)
+{
+	return Fraction(f.m_numerator * value, f.m_denominator);
+}
+
+Fraction operator*(short int value, const Fraction& f)
+{
+	return Fraction(value * f.m_numerator, f.m_denominator);
+}
+
+#endif
