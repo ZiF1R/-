@@ -3,25 +3,17 @@ main.cpp:
 #include <iostream>
 #include "classes.h"
 
-int main()  // temporary programme for test our class 'Fraction'
+int main()
 {
-	Fraction f1(2, 5);
-	f1.print();
+	Fraction f1;
+	std::cout << "Enter fraction 1: \n";
+	std::cin >> f1;
 
-	Fraction f2(3, 8);
-	f2.print();
+	Fraction f2;
+	std::cout << "Enter fraction 2: \n";
+	std::cin >> f2;
 
-	Fraction f3 = f1 * f2;
-	f3.print();
-
-	Fraction f4 = f1 * 2;
-	f4.print();
-
-	Fraction f5 = 2 * f2;
-	f5.print();
-
-	Fraction f6 = Fraction(1, 2) * Fraction(2, 3) * Fraction(3, 4);
-	f6.print();
+	std::cout << f1 << " * " << f2 << " is " << f1 * f2 << '\n'; // note: The result of f1 * f2 is an r-value
 
 	return 0;
 }
@@ -47,6 +39,21 @@ Fraction operator*(short int value, const Fraction& f)
 	return Fraction(value * f.getNumerator(), f.getDenominator());
 }
 
+std::istream& operator>> (std::istream& in, Fraction& f)
+{
+	in >> f.m_numerator;
+	in >> f.m_denominator;
+
+	return in;
+}
+
+std::ostream& operator<< (std::ostream& out, const Fraction& f)
+{
+	out << f.getNumerator() << "/" << f.getDenominator();
+
+	return out;
+}
+
 /////////////////////////////////////////
 
 classes.h:
@@ -64,7 +71,7 @@ private:
 	short int m_denominator;
 
 public:
-	Fraction(short int numerator, short int denominator)
+	Fraction(short int numerator = 0, short int denominator = 1)
 		: m_numerator(numerator), m_denominator(denominator)
 	{
 		reduce();
@@ -99,10 +106,14 @@ public:
 	{
 		return m_denominator;
 	}
+
+	friend std::istream& operator>> (std::istream& in, Fraction& f);
 };
 
 Fraction operator*(const Fraction& f1, const Fraction& f2);
 Fraction operator*(const Fraction& f, short int value);
 Fraction operator*(short int value, const Fraction& f);
+
+std::ostream& operator<< (std::ostream& out, const Fraction& f);
 
 #endif
