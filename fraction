@@ -28,11 +28,33 @@ int main()  // temporary programme for test our class 'Fraction'
 
 /////////////////////////////////////////
 
+classes.cpp:
+
+#include "classes.h"
+
+Fraction operator*(const Fraction& f1, const Fraction& f2)
+{
+	return Fraction(f1.getNumerator() * f2.getNumerator(), f1.getDenominator() * f2.getDenominator());
+}
+
+Fraction operator*(const Fraction& f, short int value)
+{
+	return Fraction(f.getNumerator() * value, f.getDenominator());
+}
+
+Fraction operator*(short int value, const Fraction& f)
+{
+	return Fraction(value * f.getNumerator(), f.getDenominator());
+}
+
+/////////////////////////////////////////
+
 classes.h:
 
 #ifndef CLASSES_H
 #define CLASSES_H
 
+#include <iostream>
 #include <cassert>	// for assert
 
 class Fraction
@@ -61,31 +83,26 @@ public:
 		m_denominator /= reduceFraction;
 	}
 
-	friend Fraction operator*(const Fraction& f1, const Fraction& f2);
-	friend Fraction operator*(const Fraction& f, short int value);
-	friend Fraction operator*(short int value, const Fraction& f);
-
 	void print() const
 	{
 		assert(m_denominator > 0);	// denominator must be more than 0 
 
 		std::cout << m_numerator << "/" << m_denominator << '\n';
 	}
+
+	int getNumerator() const
+	{
+		return m_numerator;
+	}
+
+	int getDenominator() const
+	{
+		return m_denominator;
+	}
 };
 
-Fraction operator*(const Fraction& f1, const Fraction& f2)
-{
-	return Fraction(f1.m_numerator * f2.m_numerator, f1.m_denominator * f2.m_denominator);
-}
-
-Fraction operator*(const Fraction& f, short int value)
-{
-	return Fraction(f.m_numerator * value, f.m_denominator);
-}
-
-Fraction operator*(short int value, const Fraction& f)
-{
-	return Fraction(value * f.m_numerator, f.m_denominator);
-}
+Fraction operator*(const Fraction& f1, const Fraction& f2);
+Fraction operator*(const Fraction& f, short int value);
+Fraction operator*(short int value, const Fraction& f);
 
 #endif
